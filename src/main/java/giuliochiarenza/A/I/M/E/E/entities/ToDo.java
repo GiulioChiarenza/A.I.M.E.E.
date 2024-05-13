@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "to_do")
 @Data
@@ -20,11 +22,11 @@ public class ToDo {
     @JoinColumn(name = "user_id")
     private User userId;
     private String description;
-    private String expirationDate;
+    private Date expirationDate;
     private State state;
 
 
-    public ToDo( User userId, String description, String expirationDate, State state) {
+    public ToDo( User userId, String description, Date expirationDate, State state) {
         this.userId = userId;
         this.description = description;
         this.expirationDate = expirationDate;
