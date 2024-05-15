@@ -20,7 +20,9 @@ public class ChatHistory {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
+    @Column(columnDefinition = "TEXT")
     private String text;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date interactionDate;
 
 

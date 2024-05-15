@@ -23,6 +23,7 @@ public class ToDo {
     private User userId;
     private String description;
     private Date expirationDate;
+    @Enumerated(EnumType.STRING)
     private State state;
 
 
@@ -31,5 +32,24 @@ public class ToDo {
         this.description = description;
         this.expirationDate = expirationDate;
         this.state = state;
+    }
+    public Boolean isCompleted(){
+        return state == State.COMPLETED;
+    }
+    public Boolean isPending(){
+        return state == State.PENDING;
+    }
+    public Boolean isInProgress(){
+        return state == State.INPROGRESS;
+    }
+    public Boolean isExpired(){
+        return state == State.EXPIRED;
+    }
+    public Done toDone() {
+        Done done = new Done();
+        done.setDescription(this.getDescription());
+        done.setCompletionDate(new Date());
+        done.setState(this.getState());
+        return done;
     }
 }

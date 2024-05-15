@@ -1,5 +1,6 @@
 package giuliochiarenza.A.I.M.E.E.entities;
 
+import giuliochiarenza.A.I.M.E.E.enums.State;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -21,12 +22,14 @@ public class Done {
     @JoinColumn(name = "user_id")
     private User userId;
     private String description;
-    private Date completitionDate;
+    private Date completionDate;
+    private State state;
 
 
-    public Done( User userId, String description, Date completitionDate) {
+    public Done( User userId, String description, Date completionDate, State state) {
         this.userId = userId;
         this.description = description;
-        this.completitionDate = completitionDate;
+        this.completionDate = completionDate;
+        this.state = state;
     }
 }
