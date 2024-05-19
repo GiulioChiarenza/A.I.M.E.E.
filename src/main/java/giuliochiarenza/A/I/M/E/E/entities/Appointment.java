@@ -1,11 +1,13 @@
 package giuliochiarenza.A.I.M.E.E.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 @Entity
 @Table(name = "appointment")
@@ -17,14 +19,15 @@ public class Appointment {
     @Setter(AccessLevel.NONE)
     private long id;
     @ManyToOne
+//    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User userId;
     private String title;
     private String description;
-    private Date date;
+    private LocalDate date;
     private String place;
 
-    public Appointment( User userId, String title, String description, Date date, String place) {
+    public Appointment( User userId, String title, String description, LocalDate date, String place) {
         this.userId = userId;
         this.title = title;
         this.description = description;

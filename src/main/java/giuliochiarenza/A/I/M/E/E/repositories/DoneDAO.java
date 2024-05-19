@@ -7,11 +7,15 @@ import giuliochiarenza.A.I.M.E.E.enums.State;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
-
+@Repository
+@Transactional
 public interface DoneDAO extends JpaRepository<Done, Long> {
 
     Page<Done> findByState(State state, Pageable pageable);
-    Page<Done> findByCompletionDate(Date completionDate, Pageable pageable);
+    Page<Done> findByCompletionDate(LocalDate completionDate, Pageable pageable);
 }

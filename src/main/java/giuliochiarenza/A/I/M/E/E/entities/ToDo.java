@@ -1,5 +1,7 @@
 package giuliochiarenza.A.I.M.E.E.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import giuliochiarenza.A.I.M.E.E.enums.State;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -19,15 +22,16 @@ public class ToDo {
     @Setter(AccessLevel.NONE)
     private long id;
     @ManyToOne
+//    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User userId;
     private String description;
-    private Date expirationDate;
-    @Enumerated(EnumType.STRING)
+    private LocalDate expirationDate;
+    @Enumerated(EnumType.ORDINAL)
     private State state;
 
 
-    public ToDo( User userId, String description, Date expirationDate, State state) {
+    public ToDo( User userId, String description, LocalDate expirationDate, State state) {
         this.userId = userId;
         this.description = description;
         this.expirationDate = expirationDate;
@@ -48,7 +52,7 @@ public class ToDo {
     public Done toDone() {
         Done done = new Done();
         done.setDescription(this.getDescription());
-        done.setCompletionDate(new Date());
+        done.setCompletionDate(LocalDate.now());
         done.setState(this.getState());
         return done;
     }

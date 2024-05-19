@@ -6,13 +6,17 @@ import giuliochiarenza.A.I.M.E.E.enums.State;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
-
+@Repository
+@Transactional
 public interface ToDoDAO extends JpaRepository<ToDo, Long> {
     Page<ToDo> findByUserId(long userId, Pageable pageable);
     Page<ToDo> findByState(State state, Pageable pageable);
-    Page<ToDo> findByExpirationDate(Date expirationDate, Pageable pageable);
+    Page<ToDo> findByExpirationDate(LocalDate expirationDate, Pageable pageable);
 
 
 

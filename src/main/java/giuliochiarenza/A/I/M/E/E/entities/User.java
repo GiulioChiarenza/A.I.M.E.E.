@@ -1,5 +1,7 @@
 package giuliochiarenza.A.I.M.E.E.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -30,13 +32,21 @@ public class User implements UserDetails {
     private String name;
     private String surname;
     private String avatar;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
+    @JsonIgnore
+//    @JsonBackReference
     private List<Appointment> appointments;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
+    @JsonIgnore
+//    @JsonBackReference
     private List<ToDo> toDoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
+    @JsonIgnore
+//    @JsonBackReference
     private List<Done> doneList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
+    @JsonIgnore
+//    @JsonBackReference
     private List<ChatHistory> chatHistories;
 
     public User(String username, String email, String password, String name, String surname) {
@@ -47,6 +57,7 @@ public class User implements UserDetails {
         this.surname = surname;
         setTemporaryAvatar();
     }
+
 
     public void setTemporaryAvatar() {
         this.avatar = "https://ui-avatars.com/api/?name=" + this.name + "+" + this.surname;

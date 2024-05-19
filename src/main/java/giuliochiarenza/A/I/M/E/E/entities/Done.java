@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "done")
@@ -19,14 +19,16 @@ public class Done {
     @Setter(AccessLevel.NONE)
     private long id;
     @ManyToOne
+//    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User userId;
     private String description;
-    private Date completionDate;
+    private LocalDate completionDate;
+    @Enumerated(EnumType.ORDINAL)
     private State state;
 
 
-    public Done( User userId, String description, Date completionDate, State state) {
+    public Done( User userId, String description, LocalDate completionDate, State state) {
         this.userId = userId;
         this.description = description;
         this.completionDate = completionDate;
