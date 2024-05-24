@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Done> doneList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<ChatHistory> chatHistories;
 

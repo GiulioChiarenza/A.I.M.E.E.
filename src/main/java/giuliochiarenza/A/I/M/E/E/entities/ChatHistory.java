@@ -21,14 +21,14 @@ public class ChatHistory {
     private long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
     @Column(columnDefinition = "TEXT")
     private String text;
     private LocalDate interactionDate;
 
 
-    public ChatHistory( User userId, String text, LocalDate interactionDate) {
-        this.userId = userId;
+    public ChatHistory( User user, String text, LocalDate interactionDate) {
+        this.user = user;
         this.text = text;
         this.interactionDate = interactionDate;
     }

@@ -43,6 +43,15 @@ public class ChatHistoryService {
     public ChatHistory findById(Long chatHistoryId) {
         return this.cd.findById(chatHistoryId).orElseThrow(() -> new NotFoundException(chatHistoryId));
     }
+
+    public Page<ChatHistory> getChatHistoryListByUser(User user, int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return cd.findByUser(user, pageable);
+    }
+//    public Page<ChatHistory> getChatHistoryListByUserId(User user, int page, int size, String sortBy) {
+//        // Implementa il recupero delle chat per un utente specifico usando il parametro userId
+//        return cd.findByUser_Id(user, PageRequest.of(page, size, Sort.by(sortBy)));
+//    }
 //    @Transactional
 //    public void findByIdAndDelete(Long chatHistoryId) {
 //        System.out.println("Tentativo di eliminazione del chatHistoryId: " + chatHistoryId);

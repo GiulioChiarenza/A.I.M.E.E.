@@ -15,5 +15,6 @@ import java.util.Date;
 
 public interface ChatHistoryDAO extends JpaRepository<ChatHistory, Long> {
     Page<ChatHistory> findByInteractionDate(LocalDate interactionDate, Pageable pageable);
+    Page<ChatHistory> findByUser(User user, Pageable pageable);
 
 }

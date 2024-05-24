@@ -33,3 +33,7 @@ build/
 .vscode/
 
 env.properties
+
+# Frontend
+/A.I.M.E.E.frontend/node_modules
+/A.I.M.E.E.frontend/build

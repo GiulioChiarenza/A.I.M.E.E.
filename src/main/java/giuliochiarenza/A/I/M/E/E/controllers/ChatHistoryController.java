@@ -6,6 +6,7 @@ import giuliochiarenza.A.I.M.E.E.entities.ChatHistory;
 import giuliochiarenza.A.I.M.E.E.entities.User;
 import giuliochiarenza.A.I.M.E.E.exceptions.BadRequestException;
 import giuliochiarenza.A.I.M.E.E.services.ChatHistoryService;
+import giuliochiarenza.A.I.M.E.E.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,21 +27,56 @@ public class ChatHistoryController {
 
     @Autowired
     private ChatHistoryService cs;
-//    @Autowired
-//    private MappingJackson2HttpMessageConverter jsonConverter;
+    @Autowired
+    UserService us;
+
 
     @GetMapping("/{chatHistoryId}")
 //    URL: GET /chatHistory/{chatHistoryId}
     public ChatHistory getChatHistoryById(@PathVariable long chatHistoryId) {
         return cs.findById(chatHistoryId);
     }
-    @GetMapping
+//    @GetMapping
 //    URL: GET /chatHistory?page=1&size=10&sortBy=date
+//    private Page<ChatHistory> getAllChat(@RequestParam(defaultValue = "0") int page,
+//                                          @RequestParam(defaultValue = "10") int size,
+//                                          @RequestParam(defaultValue = "id") String sortBy) {
+//        return this.cs.getChatHistoryList(page, size, sortBy);
+//    }
+
+    @GetMapping
+    // URL: GET /chatHistory?page=0&size=10&sortBy=date&userId=123
     private Page<ChatHistory> getAllChat(@RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size,
-                                          @RequestParam(defaultValue = "id") String sortBy) {
-        return this.cs.getChatHistoryList(page, size, sortBy);
+                                         @RequestParam(defaultValue = "10") int size,
+                                         @RequestParam(defaultValue = "id") String sortBy,
+                                         @RequestParam Long userId) {
+        User user = us.findById(userId);
+        return this.cs.getChatHistoryListByUser(user, page, size, sortBy);
     }
+
+    @GetMapping("/byUser/{userId}")
+    public Page<ChatHistory> getChatHistoryByUser(@PathVariable Long userId,
+                                                  @RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size,
+                                                  @RequestParam(defaultValue = "id") String sortBy) {
+        // Recupera l'utente dal repository degli utenti
+        User user = us.findById(userId);
+
+        // Ottieni le chat per l'utente specificato
+        return cs.getChatHistoryListByUser(user, page, size, sortBy);
+    }
+
+//    @GetMapping
+//// URL: GET /chatHistory?page=0&size=10&sortBy=date&userId=123
+//    private Page<ChatHistory> getAllChat(@RequestParam(defaultValue = "0") int page,
+//                                         @RequestParam(defaultValue = "10") int size,
+//                                         @RequestParam(defaultValue = "id") String sortBy,
+//                                         @RequestParam User user) {
+//        return this.cs.getChatHistoryListByUserId(user, page, size, sortBy);
+//    }
+
+
+
     @GetMapping("/byDate")
 //    URL: GET /chatHistory/byDate?date=2024-05-20&page=0&size=5&sortBy=title
     public Page<ChatHistory> getChatByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate interactionDate,
