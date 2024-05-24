@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public record NewUserDTO(@NotEmpty(message = "Username is required!")
-                         @Size(min = 3, max = 15, message = " your username must be  between 3 and 8 characters!")
+                         @Size(min = 3, max = 15, message = " your username must be  between 3 and 15 characters!")
                          String username,
                          @NotEmpty(message = "email is required!")
                          @Email(message = "please check your email format!")

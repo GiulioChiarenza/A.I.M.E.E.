@@ -2,9 +2,13 @@ package giuliochiarenza.A.I.M.E.E.controllers;
 
 import giuliochiarenza.A.I.M.E.E.dto.NewAppointmentDTO;
 import giuliochiarenza.A.I.M.E.E.dto.NewAppointmentRespDTO;
+import giuliochiarenza.A.I.M.E.E.dto.UpdateAppointmentDTO;
+import giuliochiarenza.A.I.M.E.E.dto.UpdateToDoDTO;
 import giuliochiarenza.A.I.M.E.E.entities.Appointment;
+import giuliochiarenza.A.I.M.E.E.entities.ToDo;
 import giuliochiarenza.A.I.M.E.E.entities.User;
 import giuliochiarenza.A.I.M.E.E.exceptions.BadRequestException;
+import giuliochiarenza.A.I.M.E.E.exceptions.NotFoundException;
 import giuliochiarenza.A.I.M.E.E.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -71,6 +75,30 @@ public class AppointmentController {
         }
         long userId = currentUser.getId();
         return new NewAppointmentRespDTO(this.as.saveAppointment(body, userId).getId());
+    }
+
+    @PatchMapping("/{appointmentId}")
+    // URL: PATCH /appointment/{appointmentId}
+    public Appointment updateAppointment(@PathVariable Long appointmentId, @RequestBody UpdateAppointmentDTO updatedAppointmentDTO) {
+        Appointment existingAppointment = as.findById(appointmentId);
+        if (existingAppointment == null) {
+            throw new NotFoundException("Appointment not found");
+        }
+        if (updatedAppointmentDTO.title() != null) {
+            existingAppointment.setTitle(updatedAppointmentDTO.title());
+        }
+        if (updatedAppointmentDTO.date() != null) {
+            existingAppointment.setDate(updatedAppointmentDTO.date());
+        }
+        if (updatedAppointmentDTO.place() != null) {
+            existingAppointment.setPlace(updatedAppointmentDTO.place());
+        }
+        if (updatedAppointmentDTO.description() != null) {
+            existingAppointment.setDescription(updatedAppointmentDTO.description());
+        }
+
+
+        return as.findByIdAndUpdate(appointmentId, existingAppointment);
     }
     @DeleteMapping("/{appointmentId}")
 //    URL: DELETE /appointment/{appointmentId}

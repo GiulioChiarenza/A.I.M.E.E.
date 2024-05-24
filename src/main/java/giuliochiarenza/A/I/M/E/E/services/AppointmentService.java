@@ -1,10 +1,7 @@
 package giuliochiarenza.A.I.M.E.E.services;
 
 import giuliochiarenza.A.I.M.E.E.dto.NewAppointmentDTO;
-import giuliochiarenza.A.I.M.E.E.entities.Appointment;
-import giuliochiarenza.A.I.M.E.E.entities.ChatHistory;
-import giuliochiarenza.A.I.M.E.E.entities.Done;
-import giuliochiarenza.A.I.M.E.E.entities.User;
+import giuliochiarenza.A.I.M.E.E.entities.*;
 import giuliochiarenza.A.I.M.E.E.exceptions.NotFoundException;
 import giuliochiarenza.A.I.M.E.E.repositories.AppointmentDAO;
 import jakarta.persistence.EntityManager;
@@ -37,6 +34,12 @@ public class AppointmentService {
     }
 
     public Appointment saveAppointment(NewAppointmentDTO body, long userId) {
+        LocalDate date = body.date();
+        LocalDate today = LocalDate.now();
+
+        if (date.isBefore(today)) {
+            throw new IllegalArgumentException("The date cannot be in the past.");
+        }
         User currentUser = us.findById(userId);
         Appointment newAppointment = new Appointment(currentUser, body.title(), body.description(), body.date(), body.place());
         return ad.save(newAppointment);
@@ -53,6 +56,15 @@ public void deleteAppointmentById(Long appointmentId) {
     int deletedCount = query.executeUpdate();
     System.out.println("Numero di righe eliminate per Appointment: " + deletedCount);
 }
+    public Appointment findByIdAndUpdate(Long appointmentId, Appointment updatedAppointment) {
+        Appointment found = this.findById(appointmentId);
+        found.setUserId(updatedAppointment.getUserId());
+        found.setDescription(updatedAppointment.getDescription());
+        found.setPlace(updatedAppointment.getPlace());
+        found.setDate(updatedAppointment.getDate());
+        found.setTitle(updatedAppointment.getTitle());
+        return this.ad.save(found);
+    }
 
     public Appointment findById(Long appointmentId) {
         return this.ad.findById(appointmentId).orElseThrow(() -> new NotFoundException(appointmentId));

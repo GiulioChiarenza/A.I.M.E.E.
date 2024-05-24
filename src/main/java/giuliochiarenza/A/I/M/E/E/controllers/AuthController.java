@@ -21,7 +21,7 @@ public class AuthController {
 
     @Autowired
     private AuthService as;
-
+    @CrossOrigin
     @PostMapping("/login")
 //    URL: POST /auth/login + token
     public UserLoginRespDTO login(@RequestBody UserLoginDTO body) {

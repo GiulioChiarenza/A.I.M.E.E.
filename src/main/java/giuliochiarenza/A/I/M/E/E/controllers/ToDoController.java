@@ -67,11 +67,6 @@ public class ToDoController {
         long userId = currentUser.getId();
         return new NewToDoRespDTO(this.ts.saveNewToDo(body, userId).getId());
     }
-//    @PutMapping("/{toDoId}")
-////    URL: PUT /toDo/{toDoId} + payload
-//    public ToDo updateToDo(@PathVariable Long toDoId, @RequestBody ToDo updatedToDo) {
-//        return ts.findByIdAndUpdate(toDoId, updatedToDo);
-//    }
     @PatchMapping("/{toDoId}")
     // URL: PATCH /toDo/{toDoId}
     public ToDo updateToDo(@PathVariable Long toDoId, @RequestBody UpdateToDoDTO updatedToDoDTO) {

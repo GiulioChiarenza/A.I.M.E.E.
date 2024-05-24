@@ -20,7 +20,6 @@ public class ChatHistory {
     @Setter(AccessLevel.NONE)
     private long id;
     @ManyToOne
-//    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User userId;
     @Column(columnDefinition = "TEXT")

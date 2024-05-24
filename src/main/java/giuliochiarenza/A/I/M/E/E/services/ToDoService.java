@@ -15,11 +15,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ToDoService {
@@ -33,13 +35,31 @@ public class ToDoService {
     private EntityManager entityManager;
 
 
+
     public Page<ToDo> getToDoList(int page, int size, String sortBy) {
+//        checkExpiredToDos();
         if (size > 50) size = 50;
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return this.td.findAll(pageable);
     }
+
+
+
+
+
+
+
+
+
+
     @Transactional
     public ToDo saveNewToDo(NewToDoDTO body, long userId) {
+        LocalDate expirationDate = body.expirationDate();
+        LocalDate today = LocalDate.now();
+
+        if (expirationDate.isBefore(today)) {
+            throw new IllegalArgumentException("The expiration date cannot be in the past.");
+        }
         User currentUser = us.findById(userId);
         ToDo newToDo = new ToDo(currentUser, body.description(), body.expirationDate(),body.state());
         td.save(newToDo);
@@ -48,12 +68,23 @@ public class ToDoService {
         }
         return newToDo;
     }
+
+
+
+
+
+
+
+
+
+
+
     @Transactional
     public void completeToDo(long toDoId) {
         ToDo toDo = td.findById(toDoId)
                 .orElseThrow(() -> new NotFoundException("ToDo non trovato con ID: " + toDoId));
 
-        toDo.setState(State.COMPLETED);
+        toDo.setState(State.EXPIRED);
 
         if (toDo.isExpired()) {Done done = new Done(toDo.getUserId(), toDo.getDescription(), toDo.getExpirationDate(), toDo.getState());
             dd.save(done);
@@ -82,6 +113,11 @@ public class ToDoService {
 //        ToDo found = this.findById(toDoId);
 //        this.td.delete(found);
 //    }
+
+
+
+
+
     @Transactional
     public void deleteTodoById(Long todoId) {
         Query query = entityManager.createQuery("DELETE FROM ToDo t WHERE t.id = :todoId");
@@ -89,6 +125,13 @@ public class ToDoService {
         int deletedCount = query.executeUpdate();
         System.out.println("Numero di righe eliminate per Todo: " + deletedCount);
     }
+
+
+
+
+
+
+
     public Page<ToDo> findByUserId(Long userId, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return td.findByUserId(userId, pageable);
@@ -112,6 +155,27 @@ public class ToDoService {
     }
 
 
+//    @Transactional
+//    @Scheduled(cron = "0 0 * * * *")
+//    public void checkExpiredToDos() {
+//        LocalDate today = LocalDate.now();
+//        List<ToDo> expiredToDos = findExpiredToDos(today);
+//
+//        for (ToDo todo : expiredToDos) {
+//            if (!todo.isCompleted() && !todo.isExpired()) {
+//                todo.setState(State.EXPIRED);
+//                completeToDoAndUpdateDone(todo);
+//            } else if (todo.isExpired() && todo.isCompleted()) {
+//                deleteTodoById(todo.getId());
+//                Done done = new Done(todo.getUserId(), todo.getDescription(), todo.getExpirationDate(), todo.getState());
+//                dd.save(done);
+//            }
+//        }
+//    }
+//
+//    public List<ToDo> findExpiredToDos(LocalDate currentDate) {
+//        return td.findByExpirationDateBeforeAndStateNot(currentDate, State.EXPIRED);
+//    }
 
 }
 

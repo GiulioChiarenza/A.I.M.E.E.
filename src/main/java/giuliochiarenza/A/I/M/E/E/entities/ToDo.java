@@ -22,7 +22,6 @@ public class ToDo {
     @Setter(AccessLevel.NONE)
     private long id;
     @ManyToOne
-//    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User userId;
     private String description;

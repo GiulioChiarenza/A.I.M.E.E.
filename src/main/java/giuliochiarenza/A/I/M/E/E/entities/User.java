@@ -34,19 +34,15 @@ public class User implements UserDetails {
     private String avatar;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
     @JsonIgnore
-//    @JsonBackReference
     private List<Appointment> appointments;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
     @JsonIgnore
-//    @JsonBackReference
     private List<ToDo> toDoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
     @JsonIgnore
-//    @JsonBackReference
     private List<Done> doneList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.EAGER)
     @JsonIgnore
-//    @JsonBackReference
     private List<ChatHistory> chatHistories;
 
     public User(String username, String email, String password, String name, String surname) {
