@@ -20,15 +20,15 @@ public class Done {
     private long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
     private String description;
     private LocalDate completionDate;
     @Enumerated(EnumType.ORDINAL)
     private State state;
 
 
-    public Done( User userId, String description, LocalDate completionDate, State state) {
-        this.userId = userId;
+    public Done( User user, String description, LocalDate completionDate, State state) {
+        this.user = user;
         this.description = description;
         this.completionDate = completionDate;
         this.state = state;

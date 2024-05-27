@@ -21,14 +21,14 @@ public class Appointment {
     @ManyToOne
 //    @JsonManagedReference
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
     private String title;
     private String description;
     private LocalDate date;
     private String place;
 
-    public Appointment( User userId, String title, String description, LocalDate date, String place) {
-        this.userId = userId;
+    public Appointment( User user, String title, String description, LocalDate date, String place) {
+        this.user = user;
         this.title = title;
         this.description = description;
         this.date = date;

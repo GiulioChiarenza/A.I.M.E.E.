@@ -1,6 +1,8 @@
 package giuliochiarenza.A.I.M.E.E.services;
 
+import giuliochiarenza.A.I.M.E.E.entities.ChatHistory;
 import giuliochiarenza.A.I.M.E.E.entities.Done;
+import giuliochiarenza.A.I.M.E.E.entities.User;
 import giuliochiarenza.A.I.M.E.E.enums.State;
 import giuliochiarenza.A.I.M.E.E.exceptions.NotFoundException;
 import giuliochiarenza.A.I.M.E.E.repositories.DoneDAO;
@@ -31,6 +33,14 @@ public class DoneService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return this.dd.findAll(pageable);
     }
+
+    public Page<Done> getDoneByUser(User user, int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return dd.findByUser(user, pageable);
+    }
+
+
+
     public Done findById(Long doneId) {
         return this.dd.findById(doneId).orElseThrow(() -> new NotFoundException(doneId));
     }

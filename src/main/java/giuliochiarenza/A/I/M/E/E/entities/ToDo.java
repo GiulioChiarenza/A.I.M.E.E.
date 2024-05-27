@@ -23,15 +23,15 @@ public class ToDo {
     private long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
     private String description;
     private LocalDate expirationDate;
     @Enumerated(EnumType.ORDINAL)
     private State state;
 
 
-    public ToDo( User userId, String description, LocalDate expirationDate, State state) {
-        this.userId = userId;
+    public ToDo( User user, String description, LocalDate expirationDate, State state) {
+        this.user = user;
         this.description = description;
         this.expirationDate = expirationDate;
         this.state = state;

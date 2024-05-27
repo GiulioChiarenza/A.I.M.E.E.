@@ -1,5 +1,6 @@
 package giuliochiarenza.A.I.M.E.E.repositories;
 
+import giuliochiarenza.A.I.M.E.E.entities.ChatHistory;
 import giuliochiarenza.A.I.M.E.E.entities.Done;
 import giuliochiarenza.A.I.M.E.E.entities.ToDo;
 import giuliochiarenza.A.I.M.E.E.entities.User;
@@ -18,4 +19,5 @@ public interface DoneDAO extends JpaRepository<Done, Long> {
 
     Page<Done> findByState(State state, Pageable pageable);
     Page<Done> findByCompletionDate(LocalDate completionDate, Pageable pageable);
+    Page<Done> findByUser(User user, Pageable pageable);
 }

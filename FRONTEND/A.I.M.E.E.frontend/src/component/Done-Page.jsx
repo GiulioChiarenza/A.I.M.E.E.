@@ -14,10 +14,11 @@ const DonePage = () => {
   const [selectedId, setSelectedId] = useState('');
 
   useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
     const fetchDone = async () => {
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://localhost:3001/done?page=0&size=500&sortBy=state', {
+        const response = await fetch(`http://localhost:3001/done/byUser/${userId}?page=0&size=10&sortBy=id`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -184,7 +185,7 @@ const DonePage = () => {
             <tr key={done.id}>
               <td>{done.id}
                 <br />
-                <Button variant="link" onClick={() => handleDeleteDone(done.id)}>
+                <Button className='deleteIcon' variant="link" onClick={() => handleDeleteDone(done.id)}>
                   <FcDeleteDatabase />
                 </Button>
               </td>
@@ -282,7 +283,7 @@ const DonePage = () => {
       </Modal>
 
 
-
+      <div className='space2'></div>
 
       <div className="mt-4">
         <SplitButton
@@ -308,8 +309,8 @@ const DonePage = () => {
         as={Link}
         to="/mainSection"
         variant="outline-warning"
-        className="mt-4"
-        style={{ color: 'white' }}
+        className="mt-5"
+        
       >
         Back
       </Button>

@@ -25,10 +25,11 @@ const [newExpireDate, setNewExpireDate] = useState('')
 
 
   useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
         const fetchToDo = async () => {
           try {
               const token = sessionStorage.getItem('token'); 
-              const response = await fetch('http://localhost:3001/toDo?page=0&size=10&sortBy=expirationDate', {
+              const response = await fetch(`http://localhost:3001/toDo/byUser/${userId}?page=0&size=10&sortBy=id`, {
                   headers: {
                       Authorization: `Bearer ${token}`
                   }
@@ -266,7 +267,7 @@ const [newExpireDate, setNewExpireDate] = useState('')
             <tr key={toDo.id}>
               <td>{toDo.id} 
               <br />
-              <Button variant="link" onClick={() => handleDeleteToDo(toDo.id)}>
+              <Button className='deleteIcon' variant="link" onClick={() => handleDeleteToDo(toDo.id)}>
         <FcDeleteDatabase />  
       </Button>
               </td>
@@ -282,11 +283,11 @@ const [newExpireDate, setNewExpireDate] = useState('')
               <BsPencilSquare style={{ color: 'gray' }}/>  
       </Button>
               </td>
-              <td> <Dropdown>
+              <td> <Dropdown >
                 <Dropdown.Toggle variant="dark" id="dropdown-basic">
                   {toDo.state}
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu id='stateDropdown'>
                 <Dropdown.Item onClick={() => handleStateChange(toDo.id, 'COMPLETED')}>COMPLETED</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleStateChange(toDo.id, 'PENDING')}>PENDING</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleStateChange(toDo.id, 'INPROGRESS')}>INPROGRESS</Dropdown.Item>
@@ -301,19 +302,17 @@ const [newExpireDate, setNewExpireDate] = useState('')
 
 
       <Modal show={showDateModal} onHide={handleCloseDateModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Select Date</Modal.Title>
+        <Modal.Header   closeButton>
+          <Modal.Title  >Select Date</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body  >
         <Form.Group controlId="formDate">
           <Form.Label>Select a date:</Form.Label>
           <Form.Control type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
         </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDateModal}>
-            Close
-          </Button>
+         
           <Button variant="primary" onClick={() => handleDateSelection(selectedDate)}>
             Save Changes
           </Button>
@@ -337,9 +336,7 @@ const [newExpireDate, setNewExpireDate] = useState('')
     </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseStateModal}>
-            Close
-          </Button>
+      
           <Button 
       variant="primary" 
       onClick={() => {
@@ -369,13 +366,12 @@ const [newExpireDate, setNewExpireDate] = useState('')
         value={selectedId}
         onChange={(e) => setSelectedId(e.target.value)}
         placeholder="Enter ID"
+        
       />
     </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseIdModal}>
-            Close
-          </Button>
+         
           <Button variant="primary" onClick={handleIdInput}>
             Save Changes
           </Button>
@@ -416,7 +412,7 @@ const [newExpireDate, setNewExpireDate] = useState('')
         </Modal.Footer>
       </Modal>
 
-
+      <div className='space2'></div>
 
       <div className="mt-4">
         {['end'].map((direction) => (

@@ -33,6 +33,13 @@ public class AppointmentService {
         return this.ad.findAll(pageable);
     }
 
+    public Page<Appointment> getChatAppointmentByUser(User user, int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return ad.findByUser(user, pageable);
+    }
+
+
+
     public Appointment saveAppointment(NewAppointmentDTO body, long userId) {
         LocalDate date = body.date();
         LocalDate today = LocalDate.now();
@@ -58,7 +65,7 @@ public void deleteAppointmentById(Long appointmentId) {
 }
     public Appointment findByIdAndUpdate(Long appointmentId, Appointment updatedAppointment) {
         Appointment found = this.findById(appointmentId);
-        found.setUserId(updatedAppointment.getUserId());
+        found.setUser(updatedAppointment.getUser());
         found.setDescription(updatedAppointment.getDescription());
         found.setPlace(updatedAppointment.getPlace());
         found.setDate(updatedAppointment.getDate());

@@ -36,6 +36,9 @@ public class ChatHistoryController {
     public ChatHistory getChatHistoryById(@PathVariable long chatHistoryId) {
         return cs.findById(chatHistoryId);
     }
+
+
+
 //    @GetMapping
 //    URL: GET /chatHistory?page=1&size=10&sortBy=date
 //    private Page<ChatHistory> getAllChat(@RequestParam(defaultValue = "0") int page,
@@ -44,26 +47,23 @@ public class ChatHistoryController {
 //        return this.cs.getChatHistoryList(page, size, sortBy);
 //    }
 
-    @GetMapping
-    // URL: GET /chatHistory?page=0&size=10&sortBy=date&userId=123
-    private Page<ChatHistory> getAllChat(@RequestParam(defaultValue = "0") int page,
-                                         @RequestParam(defaultValue = "10") int size,
-                                         @RequestParam(defaultValue = "id") String sortBy,
-                                         @RequestParam Long userId) {
-        User user = us.findById(userId);
-        return this.cs.getChatHistoryListByUser(user, page, size, sortBy);
-    }
+//    @GetMapping
+//    // URL: GET /chatHistory?page=0&size=10&sortBy=date&userId=123
+//    private Page<ChatHistory> getAllChat(@RequestParam(defaultValue = "0") int page,
+//                                         @RequestParam(defaultValue = "10") int size,
+//                                         @RequestParam(defaultValue = "id") String sortBy,
+//                                         @RequestParam Long userId) {
+//        User user = us.findById(userId);
+//        return this.cs.getChatHistoryByUser(user, page, size, sortBy);
+//    }
 
     @GetMapping("/byUser/{userId}")
     public Page<ChatHistory> getChatHistoryByUser(@PathVariable Long userId,
                                                   @RequestParam(defaultValue = "0") int page,
                                                   @RequestParam(defaultValue = "10") int size,
                                                   @RequestParam(defaultValue = "id") String sortBy) {
-        // Recupera l'utente dal repository degli utenti
         User user = us.findById(userId);
-
-        // Ottieni le chat per l'utente specificato
-        return cs.getChatHistoryListByUser(user, page, size, sortBy);
+        return cs.getChatHistoryByUser(user, page, size, sortBy);
     }
 
 //    @GetMapping

@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 @Transactional
 public interface ToDoDAO extends JpaRepository<ToDo, Long> {
-    Page<ToDo> findByUserId(long userId, Pageable pageable);
+    Page<ToDo> findByUser(User user, Pageable pageable);
     Page<ToDo> findByState(State state, Pageable pageable);
     Page<ToDo> findByExpirationDate(LocalDate expirationDate, Pageable pageable);
 

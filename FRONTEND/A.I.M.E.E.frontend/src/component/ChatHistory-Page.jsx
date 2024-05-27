@@ -71,9 +71,10 @@ const ChatHistory= () => {
       {chatHistory.map((chatHistory, index) => (
       <ListGroup.Item
           key={chatHistory.id}
-          className="d-flex justify-content-between align-items-start mt-4"
+          className="d-flex justify-content-between align-items-start mt-4 chatItem"
+          
         >
-          <div>{chatHistory.id} <br /><Button variant="link" onClick={() => handleDeleteChatHistory(chatHistory.id)} >
+          <div>{chatHistory.id} <br /><Button className='deleteIcon' variant="link" onClick={() => handleDeleteChatHistory(chatHistory.id)} >
         <FcDeleteDatabase />  
       </Button> </div>
           <div className="ms-5 me-auto fw-bold">
@@ -85,7 +86,7 @@ const ChatHistory= () => {
         </ListGroup.Item>
       ))}
 
-
+<div className='space2'></div>
       
          <div className="mt-4">
         <SplitButton
@@ -94,7 +95,6 @@ const ChatHistory= () => {
           drop="end"
           variant="secondary"
           title="Filter by"
-          // onSelect={}
           style={{ color: 'white' }}
         >
           <Dropdown.Item eventKey="">Date</Dropdown.Item>

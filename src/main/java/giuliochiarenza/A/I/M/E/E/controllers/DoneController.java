@@ -1,8 +1,11 @@
 package giuliochiarenza.A.I.M.E.E.controllers;
 
+import giuliochiarenza.A.I.M.E.E.entities.ChatHistory;
 import giuliochiarenza.A.I.M.E.E.entities.Done;
+import giuliochiarenza.A.I.M.E.E.entities.User;
 import giuliochiarenza.A.I.M.E.E.enums.State;
 import giuliochiarenza.A.I.M.E.E.services.DoneService;
+import giuliochiarenza.A.I.M.E.E.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,11 +22,29 @@ public class DoneController {
    @Autowired
    private DoneService ds;
 
+   @Autowired
+    private UserService us;
+
     @GetMapping("/{doneId}")
 //    URL: GET /done/{doneId}
     public Done getDoneById(@PathVariable Long doneId) {
         return ds.findById(doneId);
     }
+
+
+
+    @GetMapping("/byUser/{userId}")
+    public Page<Done> getDoneByUser(@PathVariable Long userId,
+                                                  @RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size,
+                                                  @RequestParam(defaultValue = "id") String sortBy) {
+        // Recupera l'utente dal repository degli utenti
+        User user = us.findById(userId);
+
+        // Ottieni le chat per l'utente specificato
+        return ds.getDoneByUser(user, page, size, sortBy);
+    }
+
 
     @GetMapping
 //    URL: GET /done?page=1&size=10&sortBy=state

@@ -51,7 +51,7 @@ const NavBar = () => {
     if (isLoading) {
         return  <Spinner animation="border" variant="primary" />;
     }
-    if (location.pathname === '/logout') {
+    if (location.pathname === '/logout'|| location.pathname === '/') {
         return null; 
     }
 
@@ -65,10 +65,11 @@ const NavBar = () => {
                         A.I.M.E.E.
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu align="end" className='mt-2' style={{ backgroundColor: '#2a2a2a00',  borderColor: 'black' }} >
+                    <Dropdown.Menu align="end" className=' myDropDown'  >
                     <NavDropdown.Item as={Link} to="/todo-list"  className="no-hover">ToDo List</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/appointment-list"  className="no-hover">Appointment List</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/done-list"  className="no-hover">Done List</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/calendar"  className="no-hover">Calendar</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item as={Link} to="/chat-history"  className="no-hover">Chat History</NavDropdown.Item>
                         

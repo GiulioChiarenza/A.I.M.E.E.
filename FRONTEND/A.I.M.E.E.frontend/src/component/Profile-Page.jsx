@@ -166,7 +166,7 @@ if (isLoading) {
     <Button variant="link" onClick={handleShowAvatarModal}>Edit Avatar</Button>
   </Col>
   <Col xs={12} md={8}>
-    <Card>
+    <Card className='CardProfile'>
       <Card.Header className='text-start'>ID user ({profile.id})</Card.Header>
       <Card.Body className='text-start'>
         <Card.Title>{profile.name} {profile.surname}</Card.Title>
@@ -176,9 +176,9 @@ if (isLoading) {
           <ListGroup.Item></ListGroup.Item>
         </ListGroup>
         <div className="d-flex justify-content-between m-3">
-          <Button variant="primary" onClick={handleShowModal}>Edit</Button>
+          <Button  variant="outline-primary" onClick={handleShowModal}>Edit</Button>
           <Link to="/logout">
-          <Button variant="danger" onClick={handleDelete}>Delete User</Button>
+          <Button  variant="outline-danger" onClick={handleDelete}>Delete User</Button>
           </Link>
         </div>
       </Card.Body>
@@ -198,7 +198,7 @@ if (isLoading) {
 
 
 
-    <Modal show={showModal} onHide={handleCloseModal}>
+    <Modal className='editProfile'  show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Modifica Profilo</Modal.Title>
         </Modal.Header>
@@ -259,10 +259,8 @@ if (isLoading) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSaveChanges}>
+         
+          <Button variant="outline-primary" onClick={handleSaveChanges}>
             Save Changes
           </Button>
         </Modal.Footer>
@@ -287,9 +285,7 @@ if (isLoading) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseAvatarModal}>
-            Close
-          </Button>
+         
           <Button variant="primary" onClick={handleAvatarUpload}>
             Save Changes
           </Button>

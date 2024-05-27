@@ -12,6 +12,7 @@ import RegisterPage from './component/Register-Page';
 import { Container, Row } from 'react-bootstrap'
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Calendar from './component/Calendar';
 
 
 
@@ -35,6 +36,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/logout" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="calendar" element={<Calendar />} />
         </Routes>
       </Container>
     </>

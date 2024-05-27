@@ -46,12 +46,6 @@ public class ToDoService {
 
 
 
-
-
-
-
-
-
     @Transactional
     public ToDo saveNewToDo(NewToDoDTO body, long userId) {
         LocalDate expirationDate = body.expirationDate();
@@ -72,13 +66,6 @@ public class ToDoService {
 
 
 
-
-
-
-
-
-
-
     @Transactional
     public void completeToDo(long toDoId) {
         ToDo toDo = td.findById(toDoId)
@@ -86,29 +73,40 @@ public class ToDoService {
 
         toDo.setState(State.EXPIRED);
 
-        if (toDo.isExpired()) {Done done = new Done(toDo.getUserId(), toDo.getDescription(), toDo.getExpirationDate(), toDo.getState());
+        if (toDo.isExpired()) {Done done = new Done(toDo.getUser(), toDo.getDescription(), toDo.getExpirationDate(), toDo.getState());
             dd.save(done);
             td.delete(toDo);
         } else {td.save(toDo);
-            Done done = new Done(toDo.getUserId(), toDo.getDescription(), toDo.getExpirationDate(), toDo.getState());
+            Done done = new Done(toDo.getUser(), toDo.getDescription(), toDo.getExpirationDate(), toDo.getState());
             dd.save(done);}
     }
+
+
+
     private void transitionToDoToDone(ToDo toDo) {
-        Done done = new Done(toDo.getUserId(), toDo.getDescription(), toDo.getExpirationDate(), toDo.getState());
+        Done done = new Done(toDo.getUser(), toDo.getDescription(), toDo.getExpirationDate(), toDo.getState());
         dd.save(done);
         td.delete(toDo);
     }
+
+
+
     public ToDo findById(Long toDoId) {
         return this.td.findById(toDoId).orElseThrow(() -> new NotFoundException(toDoId));
     }
+
+
+
     public ToDo findByIdAndUpdate(Long toDoId, ToDo updatedToDo) {
         ToDo found = this.findById(toDoId);
-        found.setUserId(updatedToDo.getUserId());
+        found.setUser(updatedToDo.getUser());
         found.setDescription(updatedToDo.getDescription());
         found.setExpirationDate(updatedToDo.getExpirationDate());
         found.setState(updatedToDo.getState());
         return this.td.save(found);
     }
+
+
 //    public void findByIdAndDelete(Long toDoId) {
 //        ToDo found = this.findById(toDoId);
 //        this.td.delete(found);
@@ -129,12 +127,9 @@ public class ToDoService {
 
 
 
-
-
-
-    public Page<ToDo> findByUserId(Long userId, int page, int size, String sortBy) {
+    public Page<ToDo> getToDoByUser(User user, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return td.findByUserId(userId, pageable);
+        return td.findByUser(user, pageable);
     }
     public Page<ToDo> findByExpirationDate(LocalDate expirationDate, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));

@@ -28,10 +28,11 @@ const AppointmentPage = () => {
 
 
   useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
     const fetchAppointment = async () => {
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://localhost:3001/appointment?page=0&size=10&sortBy=date', {
+        const response = await fetch(`http://localhost:3001/appointment/byUser/${userId}?page=0&size=10&sortBy=id`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -265,7 +266,7 @@ const AppointmentPage = () => {
             <tr key={appointment.id} onClick={() => handleModAppointment(appointment.id)} style={{ cursor: 'pointer' }}>
               <td>{appointment.id}
               <br />
-              <Button variant="link" onClick={() => handleDeleteAppointment(appointment.id)}>
+              <Button className='deleteIcon' variant="link" onClick={() => handleDeleteAppointment(appointment.id)}>
         <FcDeleteDatabase />  
       </Button>
               </td>
@@ -431,6 +432,7 @@ const AppointmentPage = () => {
         </Modal.Footer>
       </Modal>
 
+      <div className='space2'></div>
       <div className="mt-4">
         <SplitButton
           key="end"

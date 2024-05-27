@@ -44,7 +44,7 @@ public class ChatHistoryService {
         return this.cd.findById(chatHistoryId).orElseThrow(() -> new NotFoundException(chatHistoryId));
     }
 
-    public Page<ChatHistory> getChatHistoryListByUser(User user, int page, int size, String sortBy) {
+    public Page<ChatHistory> getChatHistoryByUser(User user, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return cd.findByUser(user, pageable);
     }

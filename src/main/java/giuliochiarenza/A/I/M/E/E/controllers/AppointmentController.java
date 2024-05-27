@@ -5,11 +5,13 @@ import giuliochiarenza.A.I.M.E.E.dto.NewAppointmentRespDTO;
 import giuliochiarenza.A.I.M.E.E.dto.UpdateAppointmentDTO;
 import giuliochiarenza.A.I.M.E.E.dto.UpdateToDoDTO;
 import giuliochiarenza.A.I.M.E.E.entities.Appointment;
+import giuliochiarenza.A.I.M.E.E.entities.ChatHistory;
 import giuliochiarenza.A.I.M.E.E.entities.ToDo;
 import giuliochiarenza.A.I.M.E.E.entities.User;
 import giuliochiarenza.A.I.M.E.E.exceptions.BadRequestException;
 import giuliochiarenza.A.I.M.E.E.exceptions.NotFoundException;
 import giuliochiarenza.A.I.M.E.E.services.AppointmentService;
+import giuliochiarenza.A.I.M.E.E.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,11 +31,28 @@ public class AppointmentController {
     @Autowired
     private AppointmentService as;
 
+    @Autowired
+    private UserService us;
+
     @GetMapping("/{appointmentId}")
 //    URL: GET /appointment/{appointmentId}
     public Appointment getAppointmentById(@PathVariable Long appointmentId) {
         return as.findById(appointmentId);
     }
+
+    @GetMapping("/byUser/{userId}")
+    public Page<Appointment> getAppointmentByUser(@PathVariable Long userId,
+                                                  @RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size,
+                                                  @RequestParam(defaultValue = "id") String sortBy) {
+        // Recupera l'utente dal repository degli utenti
+        User user = us.findById(userId);
+
+        // Ottieni le chat per l'utente specificato
+        return as.getChatAppointmentByUser(user, page, size, sortBy);
+    }
+
+
     @GetMapping
 //    URL: GET /appointment?page=1&size=10&sortBy=date
     private Page<Appointment> getAllAppointment(@RequestParam(defaultValue = "0") int page,

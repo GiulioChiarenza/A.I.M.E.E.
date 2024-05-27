@@ -1,4 +1,5 @@
-#root {
+
+ #root {
   height: 100vh;
   width: 2500px;
   margin: 0 auto;
@@ -8,8 +9,8 @@
 
 body {
   background-color: #2a2a2a00 !important;
-  margin-left: 24px !important;
-  margin-right: 24px !important;
+  margin-left: 30px !important;
+  margin-right: 30px !important;
   overflow-x: hidden;
 }
 
@@ -25,7 +26,6 @@ footer {
 .main-h2 {
   color: #90c2d0 !important;
 }
-
 
 .icons {
   margin-left: 0.8em;
@@ -139,16 +139,14 @@ a {
 
 .space{
 
-height: 150px !important;
+height: 300px !important;
 
 }
+.space2{
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  margin: 0;
-  padding: 0;
-}
+  height: 120px !important;
+  
+  }
 
 .chat-container {
   max-width: 600px;
@@ -174,7 +172,7 @@ body {
 }
 
 .bot .message-content {
-  background-color: #2a2a2afd;
+  background-color: #343434fd;
   float: left;
 }
 
@@ -193,41 +191,144 @@ body {
 .myNav{
   color: gray 
 }
+.chatItem{
+  border-radius: 12px;
+  background-color: #606060fd !important;
+  color: white !important;
+  border-color: #777 !important;
+}
+.deleteIcon{
+  font-size: 25px !important;
+  padding: 0 !important;
+}
 
+.myDropDown{
+  background-color: #2a2a2a00 !important ;
+  border-color: #777 !important;
+  margin-top: 100px !important;
+}
 
+.modal-content{
+  background: transparent !important;
+  color: white !important;
+  border-color: #777 !important;
+}
+#formState{
+  background-color:#2a2a2afd ;
+  color: white;
+}
+#formDate{
+  background-color:#2a2a2afd ;
+  color: white;
+}
+#formId {
+  background-color:#2a2a2afd ;
+  color: white ;
+}
+#formAvatar{
+  background-color:#2a2a2afd ;
+  color: white;
+}
+#formTitle{
+  background-color:#2a2a2afd ;
+  color: white;
+}
+#formPlace{
+  background-color:#2a2a2afd ;
+  color: white;
+}
 
+.modal-content button.btn-close {
+ background-color: red;
+}
+.dropdown-menu.show{
+  background: transparent !important;
+  border-color: #777 !important;
+}
+.dropdown-menu.show a{
+  color: white;
+}
+.dropdown-menu.show a:hover{
+  background-color: #2a2a2afd;
+}
+#stateDropdown{
+background-color: #2a2a2afd !important;
+}
 
+.CardProfile{
+  background-color: transparent !important ;
+  border-color: #777 !important;
+  color: white;
+}
 
+.CardProfile div {
+  color: white;
+  border-color: #777 !important;
+  background-color: transparent !important ;
 
+}
 
+.editProfile{
+  background-color: #2a2a2a00 !important ;
+  color: white;
+  border-color: #777 !important;
+}
 
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
 
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
 
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  width: 100%;
+}
 
+.calendar-day {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
+  position: relative;
+}
 
+.calendar-day.empty {
+  background-color: #e0e0e0 ;
+}
+.calendar-day .day-number {
+  color: white; 
+}
 
+.appointment, .todo, .done {
+  background-color: #f0f0f0;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 3px;
+}
 
+.appointment {
+  background-color: #add8e6; 
+}
 
+.todo {
+  background-color: #ffebcd ; 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.done {
+  background-color: #90ee90; 
+}
