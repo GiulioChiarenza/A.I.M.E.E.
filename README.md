@@ -2,6 +2,7 @@
 
  Tecnologie utilizzate:
  FRONTEND => Vitejs - React - Redux - JS
+ 
  BACKEND -> Spring - JAVA
 
  Le funzionalità dell'app sono:
