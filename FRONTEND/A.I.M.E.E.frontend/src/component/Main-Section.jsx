@@ -48,16 +48,40 @@ const MainSection = () => {
     setChatMessages([initialBotMessage]);
   }, []);
 
-  const handleOptionSelect = (option) => {
+
+  const handleOptionSelect = async (option) => {
+    try {
+      const timestamp = new Date().toISOString();
+      const token = sessionStorage.getItem('token');
+      const response = await fetch('http://localhost:3001/chatHistory', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          text: option,
+          interactionDate: timestamp
+        })
+      });
+      if (response.ok) {
+        console.log(`Message "${option}" sent to chat history successfully.`);
+      } else {
+        console.error('Error sending message to chat history:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error sending message to chat history:', error.message);
+    }
+  
     console.log('Option selected:', option);
     setSelectedOption(option);
-
+  
     setChatMessages(prevMessages => [
       ...prevMessages,
       { text: option, sender: 'user', timestamp: new Date().toISOString() },
       { text: 'Certainly!', sender: 'bot', timestamp: new Date().toISOString() }
     ]);
-
+  
     setTimeout(() => setShowForm(true), 400);
   };
 
@@ -171,6 +195,7 @@ const MainSection = () => {
             </Dropdown>
           )}
       </main>
+      <div className='space'></div>
     </div>
   );
 };

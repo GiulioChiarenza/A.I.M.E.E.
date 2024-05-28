@@ -237,6 +237,15 @@ height: 300px !important;
   background-color:#2a2a2afd ;
   color: white;
 }
+#formDescription{
+  background-color:#2a2a2afd ;
+  color: white;
+}
+#formExpireDate{
+  background-color:#2a2a2afd ;
+  color: white;
+}
+
 
 .modal-content button.btn-close {
  background-color: red;
@@ -289,7 +298,7 @@ background-color: #2a2a2afd !important;
   width: 100%;
   padding: 10px;
   background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #777;
   margin-bottom: 10px;
 }
 
@@ -301,7 +310,8 @@ background-color: #2a2a2afd !important;
 }
 
 .calendar-day {
-  border: 1px solid #ccc;
+  border: 1px solid #777;
+  /* #ccc */
   padding: 10px;
   min-height: 100px;
   position: relative;

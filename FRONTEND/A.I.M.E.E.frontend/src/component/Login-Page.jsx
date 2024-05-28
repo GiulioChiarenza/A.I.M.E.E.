@@ -51,6 +51,21 @@ const LoginPage = () => {
 
     return (
         <Container className="mt-5">
+             <Row className="align-items-center">
+             <Col>
+          <h1 style={{ color:"white" }}>A.I.M.E.E.</h1>
+        </Col>
+      </Row>
+      <Row className="align-items-center">
+        <Col>
+          <img 
+            src="https://thumbs.dreamstime.com/b/simbolo-dell-icona-del-vettore-chip-processore-ai-per-l-intelligenza-artificiale-la-progettazione-grafica-il-logo-sito-web-i-158205566.jpg" 
+            alt="img" 
+            style={{ maxWidth: '100px', height: 'auto' }} 
+          />
+        </Col>
+      </Row>
+            <div className='space'></div>
         <Row className="justify-content-md-center">
             <Col md={6}>
                 <h2 className="text-center">Login</h2>

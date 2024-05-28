@@ -403,9 +403,7 @@ const [newExpireDate, setNewExpireDate] = useState('')
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-            Close
-          </Button>
+          
           <Button variant="primary" onClick={handleSaveChanges}>
             Save Changes
           </Button>

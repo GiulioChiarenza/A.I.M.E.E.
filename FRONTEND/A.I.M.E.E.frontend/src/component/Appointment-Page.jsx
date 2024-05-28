@@ -263,7 +263,7 @@ const AppointmentPage = () => {
         </thead>
         <tbody>
           {appointment.map((appointment) => (
-            <tr key={appointment.id} onClick={() => handleModAppointment(appointment.id)} style={{ cursor: 'pointer' }}>
+            <tr key={appointment.id}  style={{ cursor: 'pointer' }}>
               <td>{appointment.id}
               <br />
               <Button className='deleteIcon' variant="link" onClick={() => handleDeleteAppointment(appointment.id)}>
@@ -310,9 +310,7 @@ const AppointmentPage = () => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDateModal}>
-            Close
-          </Button>
+         
           <Button variant="primary" onClick={() => handleDateSelection(selectedDate)}>
             Save Changes
           </Button>
@@ -330,9 +328,7 @@ const AppointmentPage = () => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseTitleModal}>
-            Close
-          </Button>
+          
           <Button variant="primary" onClick={() => handleTitleSelection(selectedTitle)}>
             Save Changes
           </Button>
@@ -350,9 +346,7 @@ const AppointmentPage = () => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClosePlaceModal}>
-            Close
-          </Button>
+          
           <Button variant="primary" onClick={() => handlePlaceSelection(selectedPlace)}>
             Save Changes
           </Button>
@@ -375,9 +369,7 @@ const AppointmentPage = () => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseIdModal}>
-            Close
-          </Button>
+         
           <Button variant="primary" onClick={handleIdInput}>
             Save Changes
           </Button>
